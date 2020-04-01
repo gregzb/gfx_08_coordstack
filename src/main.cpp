@@ -178,6 +178,10 @@ void parse(std::string fileName, Screen &screen, Mat4 &edges, Mat4 &triangles, s
             iss >> v >> r;
 
             triangles.addSphere(v, r, 20, 10);
+            
+            triangles.multiplyMutate(coordSystems.back());
+            screen.drawTriangles(triangles, {255, 255, 255, 255});
+            triangles.clear();
         }
         else if (line == "torus")
         {

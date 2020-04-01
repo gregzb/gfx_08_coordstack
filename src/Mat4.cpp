@@ -235,6 +235,30 @@ void Mat4::addCurve(double x0, double y0, double x1, double y1, double rx0, doub
     }
 }
 
+// void Mat4::addBox(Vec4 const &v, Vec4 const &dims)
+// {
+//     double x, y, z;
+//     x = v.getX();
+//     y = v.getY();
+//     z = v.getZ();
+//     ;
+//     double x1 = x + dims.getX();
+//     double y1 = y - dims.getY();
+//     double z1 = z - dims.getZ();
+
+//     //fix z
+//     addQuad({x, y, z}, {x, y1, z}, {x1, y1, z}, {x1, y, z});
+//     addQuad({x, y, z1}, {x1, y, z1}, {x1, y1, z1}, {x, y1, z1});
+
+//     //fix x
+//     addQuad({x, y, z}, {x, y, z1}, {x, y1, z1}, {x, y1, z});
+//     addQuad({x, y, z}, {x, y1, z}, {x, y1, z1}, {x, y, z1});
+
+//     //fix y
+//     addQuad({x1, y, z}, {x1, y, z1}, {x, y, z1}, {x, y, z});
+//     addQuad({x1, y1, z}, {x, y1, z}, {x, y1, z1}, {x1, y1, z1});
+// }
+
 void Mat4::addBox(Vec4 const &v, Vec4 const &dims)
 {
     double x, y, z;
@@ -247,16 +271,37 @@ void Mat4::addBox(Vec4 const &v, Vec4 const &dims)
     double z1 = z - dims.getZ();
 
     //fix z
-    addQuad({x, y, z}, {x, y1, z}, {x1, y1, z}, {x1, y, z});
     addQuad({x, y, z1}, {x1, y, z1}, {x1, y1, z1}, {x, y1, z1});
+    addQuad({x, y, z}, {x, y1, z}, {x1, y1, z}, {x1, y, z});
 
     //fix x
     addQuad({x, y, z}, {x, y, z1}, {x, y1, z1}, {x, y1, z});
-    addQuad({x, y, z}, {x, y1, z}, {x, y1, z1}, {x, y, z1});
+    addQuad({x1, y, z}, {x1, y1, z}, {x1, y1, z1}, {x1, y, z1});
 
     //fix y
     addQuad({x1, y, z}, {x1, y, z1}, {x, y, z1}, {x, y, z});
     addQuad({x1, y1, z}, {x, y1, z}, {x, y1, z1}, {x1, y1, z1});
+
+    // addTriangle({x, y, z}, {x1, y, z}, {x, y, z1});
+    // //oui
+    // addTriangle({x1, y, z}, {x1, y, z1}, {x, y, z1});
+
+    // addTriangle({x, y, z}, {x, y1, z}, {x1, y1, z});
+    // addTriangle({x, y, z}, {x1, y1, z}, {x1, y, z});
+
+    // addTriangle({x, y, z}, {x, y1, z1}, {x, y1, z});
+    // addTriangle({x, y, z}, {x, y, z1}, {x, y1, z1});
+
+    // addTriangle({x, y1, z}, {x, y1, z1}, {x1, y1, z});
+    // addTriangle({x1, y1, z}, {x, y1, z1}, {x1, y1, z1});
+
+    // addTriangle({x1, y, z}, {x1, y1, z}, {x1, y1, z1});
+    // //oui
+    // addTriangle({x1, y, z}, {x1, y1, z1}, {x1, y, z1});
+
+    // addTriangle({x, y, z1}, {x1, y1, z1}, {x, y1, z1});
+    // addTriangle({x, y, z1}, {x1, y, z1}, {x1, y1, z1});
+
 }
 
 void Mat4::addSphere(Vec4 const &v, double r, int thetaSteps, int phiSteps)
